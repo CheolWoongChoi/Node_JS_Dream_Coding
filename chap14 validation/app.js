@@ -15,9 +15,13 @@ const validate = (req, res, next) => {
 app.post(
   "/users",
   [
-    body("name").isLength({ min: 2 }).withMessage("이름은 두글자 이상!"),
+    body("name")
+      .trim()
+      .toLowerCase()
+      .isLength({ min: 2 })
+      .withMessage("이름은 두글자 이상!"),
     body("age").isInt().withMessage("숫자를 입력해"),
-    body("email").isEmail().withMessage("이메일 입력해요"),
+    body("email").isEmail().withMessage("이메일 입력해요").normalizeEmail(),
     validate,
   ],
   (req, res, next) => {
