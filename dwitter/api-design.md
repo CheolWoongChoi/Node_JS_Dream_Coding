@@ -1,6 +1,72 @@
 ## Dwitter Apis
 
-Dwitter Scheme
+//
+유저 스키마
+
+```
+user
+{
+  id: string;
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  url: string (optional);
+}
+```
+
+//
+회원가입
+
+POST /auth/signup
+
+```
+user
+```
+
+response
+
+```
+{
+  token,
+  username
+}
+```
+
+//
+로그인
+POST /auth/login
+
+```
+{
+  username,
+  password
+}
+```
+
+response
+
+```
+{
+  token
+  username
+}
+```
+
+//
+GET /auth/me
+
+response
+
+```
+  {
+    token,
+    username
+  }
+```
+
+//
+드위터 스키마
 
 ```
 id: number;

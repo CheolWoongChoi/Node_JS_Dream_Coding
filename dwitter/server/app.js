@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dweetsRouter from "./router/dweets.js";
+import authRouter from "./router/auth.js";
 import "express-async-errors";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(helmet());
 app.use(morgan("tiny"));
 
 app.use("/dweets", dweetsRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   res.sendStatus(404);
