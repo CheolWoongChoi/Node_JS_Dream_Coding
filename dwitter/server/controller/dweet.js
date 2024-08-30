@@ -5,8 +5,8 @@ export const dweetsController = {
     const username = req.query.username;
 
     const data = await (username
-      ? dweetRepository.getAll(username)
-      : dweetRepository.getAllByUsername());
+      ? dweetRepository.getAllByUsername(username)
+      : dweetRepository.getAll());
 
     res.status(200).json(data);
   },

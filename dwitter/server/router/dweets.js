@@ -1,5 +1,4 @@
 import express from "express";
-import "express-async-errors";
 import { body } from "express-validator";
 import { dweetsController } from "../controller/dweet.js";
 import { validate } from "../middleware/validator.js";
