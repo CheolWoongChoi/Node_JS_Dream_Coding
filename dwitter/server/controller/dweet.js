@@ -23,26 +23,36 @@ export const dweetsController = {
     }
   },
   createDweet: async (req, res) => {
-    const { text, username, name } = req.body;
+    const { text } = req.body;
 
-    const dweet = await dweetRepository.create(text, name, username);
+    const dweet = await dweetRepository.create(text, req.userId);
     res.status(201).json(dweet);
   },
   updateDweet: async (req, res) => {
     const id = req.params.id;
     const text = req.body.text;
-    const dweet = await dweetRepository.update(id, text);
+    const dweet = await dweetRepository.getById(id);
 
-    if (dweet) {
-      res.status(200).json(dweet);
-    } else {
-      res.status(404).json({
-        message: `Dweet id(${id}) not found`,
-      });
+    if (!dweet) {
+      return res.sendStatus(404);
     }
+    if (dweet.userId !== req.userId) {
+      return res.sendStatus(403);
+    }
+
+    const updated = await dweetRepository.update(id, text);
+    res.status(200).json(updated);
   },
   deleteDweet: async (req, res) => {
     const id = req.params.id;
+    const dweet = await dweetRepository.getById(id);
+
+    if (!dweet) {
+      return res.sendStatus(404);
+    }
+    if (dweet.userId !== req.userId) {
+      return res.sendStatus(403);
+    }
     await dweetRepository.remove(id);
     res.sendStatus(204);
   },

@@ -57,18 +57,17 @@ export const authController = {
       username,
     });
   },
-  me: (req, res, next) => {
-    const token = req.headers.authorization;
+  me: async (req, res, next) => {
+    const user = await userRepository.findById(req.userId);
 
     if (!user) {
-      res.status(404).json({
-        message: "내 정보가 없습니다.",
+      return res.status(404).json({
+        message: "User not found",
       });
-      return;
     }
 
     res.status(200).json({
-      token: user.token,
+      token: req.token,
       username: user.username,
     });
   },

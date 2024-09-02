@@ -1,8 +1,8 @@
 let users = [
   {
     id: "1",
-    username: "bob",
-    password: "12345",
+    username: "bobb",
+    password: "$2b$12$01kJmTDC3qHJqr3TLMGwq.mjxhvoFrEwDNtRSjKOAHRsppZTE/W.G",
     name: "Bob",
     email: "bob@gmail.com",
     url: "",
@@ -11,6 +11,10 @@ let users = [
 
 export async function findByUsername(username) {
   return users.find((user) => user.username === username);
+}
+
+export async function findById(id) {
+  return users.find((user) => user.id === id);
 }
 
 export async function createUser(user) {

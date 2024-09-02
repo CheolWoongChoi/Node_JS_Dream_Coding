@@ -1,49 +1,62 @@
+import * as userRepository from "../data/auth.js";
+
 export let dweets = [
   {
     id: "1",
     text: "드림코딩에서 강의 들으면 너무 좋으다",
-    createdAt: "2021-05-09T04:20:57.000Z",
-    name: "Bob",
-    username: "bob",
-    url: "https://static.vecteezy.com/system/resources/thumbnails/011/675/374/small_2x/man-avatar-image-for-profile-png.png",
+    createdAt: new Date().toString(),
+    userId: "1",
   },
   {
     id: "2",
     text: "Hello, Cup!",
-    createdAt: "2024-08-27T04:00:00.000Z",
-    name: "Cap",
-    username: "cap",
-    url: "https://img.freepik.com/free-psd/expressive-woman-gesturing_23-2150198673.jpg",
+    createdAt: new Date().toString(),
+    userId: "1",
   },
 ];
 
 export async function getAll() {
-  return dweets;
+  return Promise.all(
+    dweets.map(async (dweet) => {
+      const { username, name, url } = await userRepository.findById(
+        dweet.userId
+      );
+
+      return { ...dweet, username, name, url };
+    })
+  );
 }
 
 export async function getAllByUsername(username) {
-  return dweets.filter((d) => d.username === username);
+  return getAll().then((dweets) =>
+    dweets.filter((d) => d.username === username)
+  );
 }
 
 export async function getById(id) {
-  return dweets.find((d) => d.id === id);
+  const found = dweets.find((d) => d.id === id);
+  if (!found) {
+    return null;
+  }
+
+  const { username, name, url } = await userRepository.findById(found.userId);
+  return { ...found, username, name, url };
 }
 
-export async function create(text, name, username) {
+export async function create(text, userId) {
   const dweet = {
     id: Date.now().toString(),
     text,
     createdAt: new Date(),
-    name,
-    username,
+    userId,
   };
   dweets = [dweet, ...dweets];
 
-  return dweet;
+  return getById(dweet.id);
 }
 
 export async function update(id, text) {
-  const dweet = dweets.find((d) => d.id === id);
+  const dweet = await getById(id);
 
   if (dweet) {
     dweet.text = text;
