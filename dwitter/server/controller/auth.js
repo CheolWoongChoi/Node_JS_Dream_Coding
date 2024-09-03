@@ -2,13 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "express-async-errors";
 import * as userRepository from "../data/auth.js";
-
-/**
- * 보안 코드
- */
-const jwtSecretKey = ")@H£RH(g4a.MamqixST0j7^c1]SyM,y&"; // 32
-const jwtExpiresInDays = "2d";
-const bcryptSaltRounds = 12;
+import { config } from "../config.js";
 
 export const authController = {
   signup: async (req, res, next) => {
@@ -19,7 +13,7 @@ export const authController = {
       return res.status(409).json({ message: `${username}은 이미 존재!` });
     }
 
-    const hashed = await bcrypt.hash(password, bcryptSaltRounds);
+    const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
     const userId = await userRepository.createUser({
       username,
       password: hashed,
@@ -74,5 +68,7 @@ export const authController = {
 };
 
 function createJwtToken(id) {
-  return jwt.sign({ id }, jwtSecretKey, { expiresIn: jwtExpiresInDays });
+  return jwt.sign({ id }, config.jwt.secretKey, {
+    expiresIn: config.jwt.expiresInSec,
+  });
 }
