@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import "express-async-errors";
 import dweetsRouter from "./router/dweets.js";
 import authRouter from "./router/auth.js";
-import "express-async-errors";
 import { config } from "./config.js";
+import { initSocket } from "./connection/socket.js";
 
 const app = express();
 
@@ -26,4 +27,5 @@ app.use((err, req, res, next) => {
   res.sendStatus(500);
 });
 
-app.listen(config.host.port);
+const server = app.listen(config.host.port);
+initSocket(server);

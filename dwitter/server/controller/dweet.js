@@ -1,3 +1,4 @@
+import { getSocketIO } from "../connection/socket.js";
 import * as dweetRepository from "../data/dweet.js";
 
 export const dweetsController = {
@@ -27,6 +28,8 @@ export const dweetsController = {
 
     const dweet = await dweetRepository.create(text, req.userId);
     res.status(201).json(dweet);
+
+    getSocketIO().emit("dweets", dweet);
   },
   updateDweet: async (req, res) => {
     const id = req.params.id;
