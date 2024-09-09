@@ -39,6 +39,7 @@ export const dweetsController = {
     if (!dweet) {
       return res.sendStatus(404);
     }
+
     if (dweet.userId !== req.userId) {
       return res.sendStatus(403);
     }
