@@ -61,7 +61,7 @@ export const authController = {
     }
 
     res.status(200).json({
-      token: req.token,
+      // token: req.token,
       username: user.username,
     });
   },

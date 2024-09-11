@@ -7,7 +7,7 @@ import dweetsRouter from "./router/dweets.js";
 import authRouter from "./router/auth.js";
 import { config } from "./config.js";
 import { initSocket } from "./connection/socket.js";
-import { db } from "./db/database.js";
+import { sequelize } from "./db/database.js";
 
 const app = express();
 
@@ -24,11 +24,10 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   console.log(err);
-
   res.sendStatus(500);
 });
 
-db.getConnection();
-
-const server = app.listen(config.host.port);
-initSocket(server);
+sequelize.sync().then(() => {
+  const server = app.listen(config.host.port);
+  initSocket(server);
+});
