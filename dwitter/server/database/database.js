@@ -1,18 +1,27 @@
-import MongoDb from "mongodb";
+import Mongoose from "mongoose";
 import { config } from "../config.js";
 
-let db;
-
 export async function connectDB() {
-  return MongoDb.MongoClient.connect(config.db.host) //
-    .then((client) => {
-      db = client.db();
-    });
+  /**
+   * 항상,,
+   * useNewUrlParser, useUnifiedTopology, useCreateIndex : true
+   * useFindAndModify : false
+   */
+
+  return Mongoose.connect(config.db.host);
 }
 
-export function getUsers() {
-  return db.collection("users");
+export function useVirtualId(schema) {
+  // _id -> id
+  schema.virtual("id").get(function () {
+    return this._id.toString();
+  });
+  schema.set("toJSON", { virtuals: true });
+  schema.set("toObject", { virtuals: true });
 }
+
+// TODO (remove)
+let db;
 
 export function getTweets() {
   return db.collection("tweets");
