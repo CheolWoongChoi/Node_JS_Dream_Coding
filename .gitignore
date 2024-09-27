@@ -3,3 +3,6 @@
 
 .vscode
 .env
+
+*.sh
+*.sh.pub
