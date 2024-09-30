@@ -1,8 +1,12 @@
 /node_modules
 /**/node_modules
+/**/build
 
 .vscode
 .env
 
 *.sh
 *.sh.pub
+
+# Local Netlify folder
+.netlify
