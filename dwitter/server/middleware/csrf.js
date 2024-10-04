@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { config } from "../config.js";
 
 export const csrfCheck = (req, res, next) => {
