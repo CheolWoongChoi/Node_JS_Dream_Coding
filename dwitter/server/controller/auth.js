@@ -72,6 +72,10 @@ export const authController = {
       username: user.username,
     });
   },
+  csrfToken: async (req, res, next) => {
+    const csrfToken = await generateCSRFToken();
+    res.status(200).json({ csrfToken });
+  },
 };
 
 function createJwtToken(id) {
@@ -88,4 +92,8 @@ function setToken(res, token) {
     secure: true,
   };
   res.cookie("token", token, options); // HTTP-Only Cookie
+}
+
+function generateCSRFToken() {
+  return bcrypt.hash(config.csrf.plainToken, 1);
 }
