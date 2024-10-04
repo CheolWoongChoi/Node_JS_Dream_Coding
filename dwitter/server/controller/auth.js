@@ -47,6 +47,8 @@ export const authController = {
     }
 
     const token = createJwtToken(user.id);
+    setToken(res, token);
+
     res.status(200).json({
       token,
       username,

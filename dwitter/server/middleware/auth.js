@@ -13,7 +13,7 @@ export const isAuth = async (req, res, next) => {
   // check the header first
   const authHeader = req.get("Authorization");
   if (!(authHeader && authHeader.startsWith("Bearer "))) {
-    token = authHeader.split(" ")[1];
+    token = authHeader?.split(" ")[1];
   }
 
   // if no token in the header, check the cookie
