@@ -9,8 +9,6 @@ export const dweetsController = {
       ? dweetRepository.getAllByUsername(username)
       : dweetRepository.getAll());
 
-    console.log(data);
-
     res.status(200).json(data);
   },
   getDweet: async (req, res) => {

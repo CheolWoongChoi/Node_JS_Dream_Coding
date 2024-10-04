@@ -54,6 +54,10 @@ export const authController = {
       username,
     });
   },
+  logout: async (req, res, next) => {
+    res.cookie("token", "");
+    res.status(200).json({ message: "User has been logged out" });
+  },
   me: async (req, res, next) => {
     const user = await userRepository.findById(req.userId);
 
