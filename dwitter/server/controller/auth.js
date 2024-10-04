@@ -21,7 +21,8 @@ export const authController = {
       email,
       url,
     });
-    const token = createJwtToken(userId);
+    const token = createJwtToken(userId); // cookie header
+    setToken(res, token);
 
     res.status(201).json({
       token,
@@ -71,4 +72,14 @@ function createJwtToken(id) {
   return jwt.sign({ id }, config.jwt.secretKey, {
     expiresIn: config.jwt.expiresInSec,
   });
+}
+
+function setToken(res, token) {
+  const options = {
+    maxAge: config.jwt.expiresInSec * 1000,
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  };
+  res.cookie("token", token, options); // HTTP-Only Cookie
 }

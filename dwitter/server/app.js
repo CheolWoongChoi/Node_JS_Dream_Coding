@@ -1,8 +1,9 @@
 import express from "express";
+import "express-async-errors";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import "express-async-errors";
+import cookieParser from "cookie-parser";
 import dweetsRouter from "./router/dweets.js";
 import authRouter from "./router/auth.js";
 import { config } from "./config.js";
@@ -11,9 +12,16 @@ import { sequelize } from "./db/database.js";
 
 const app = express();
 
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionsSuccessStatus: 200,
+  credentials: true, // allow the Access-Control-Allow-Credentials
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 app.use(helmet());
+app.use(cors(corsOption));
 app.use(morgan("tiny"));
 
 app.use("/dweets", dweetsRouter);
