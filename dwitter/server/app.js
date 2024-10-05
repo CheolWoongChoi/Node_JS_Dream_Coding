@@ -15,7 +15,7 @@ import { initSocket } from "./connection/socket.js";
 import { sequelize } from "./db/database.js";
 import { csrfCheck } from "./middleware/csrf.js";
 import rateLimiter from "./middleware/rate-limiter.js";
-import * as apis from "./controller/index.js";
+import * as apiControllers from "./controller/index.js";
 
 const app = express();
 
@@ -56,6 +56,17 @@ function modulePathResolver(_, route, apiDoc) {
   const pathKey = route.openApiRoute.substring(route.basePath.length);
   const operation = apiDoc.paths[pathKey][route.method.toLowerCase()];
   const methodName = operation.operationId;
+
+  /**
+   * 나는 컨트롤러 별로 API들을 객체 안에 관리하고 있다.
+   * 그래서 컨트롤러 내부의 API들을 하나로 묶어줄 필요가 있음.
+   */
+  const apis = {};
+
+  Object.keys(apiControllers).forEach((key) => {
+    Object.assign(apis, apiControllers[key]);
+  });
+
   return apis[methodName];
 }
 

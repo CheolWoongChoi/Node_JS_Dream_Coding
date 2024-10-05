@@ -6,7 +6,7 @@ info:
   contact:
     email: info@dream-coding.com
 servers:
-  - url: 'http://localhost:8080'
+  - url: "http://localhost:8080"
 tags:
   - name: tweets
     description: Methods to access and manage tweets
@@ -25,27 +25,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRegistration'
+              $ref: "#/components/schemas/UserRegistration"
         required: true
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthApiResponse'
-        '400':
+                $ref: "#/components/schemas/AuthApiResponse"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-        '409':
+                $ref: "#/components/schemas/ErrorApiResponse"
+        "409":
           description: User already exists
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
+                $ref: "#/components/schemas/ErrorApiResponse"
 
   /tweets:
     get:
@@ -63,21 +63,20 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Succeeded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TweetsApiResponse'
-        '401':
+                $ref: "#/components/schemas/TweetsApiResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
+                $ref: "#/components/schemas/ErrorApiResponse"
       security:
         - jwt_auth: []
-
 
 components:
   schemas:
@@ -97,7 +96,7 @@ components:
           format: email
         url:
           type: string
-          format: url
+          # format: url
       required:
         - username
         - password
@@ -108,7 +107,7 @@ components:
         password: password
         name: John Doe
         email: john.doe@gmail.com
-        url: 'https://awesomepics.com/878y766'
+        url: "https://awesomepics.com/878y766"
     Tweet:
       type: object
       properties:
@@ -122,7 +121,7 @@ components:
           type: string
           format: date-time
           description: Creation date
-          example: '2021-01-30T08:30:20.000Z'
+          example: "2021-01-30T08:30:20.000Z"
         username:
           type: string
         name:
@@ -145,7 +144,7 @@ components:
       example:
         id: 42
         text: Best tweet ever
-        createdAt: '2021-01-30T08:30:20.000Z'
+        createdAt: "2021-01-30T08:30:20.000Z"
         userId: 1
         name: John Doe
         username: johndoe
@@ -175,7 +174,7 @@ components:
     TweetsApiResponse:
       type: array
       items:
-        $ref: '#/components/schemas/Tweet'
+        $ref: "#/components/schemas/Tweet"
   securitySchemes:
     jwt_auth:
       description: Bearer token authorization with JWT

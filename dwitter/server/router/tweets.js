@@ -14,7 +14,14 @@ const validateTweet = [
   validate,
 ];
 
+/** 
+ * 
+express-openapi-validator와 openapi.yml로 getTweets 대체
+
 router.get("/", isAuth, tweetController.getTweets);
+*
+**/
+
 router.get("/:id", isAuth, tweetController.getTweet);
 router.post("/", isAuth, validateTweet, tweetController.createTweet);
 router.put("/:id", isAuth, validateTweet, tweetController.updateTweet);

@@ -16,6 +16,9 @@ const validateCredential = [
   validate,
 ];
 
+/** 
+* express-openapi-validator와 openapi.yml로 회원가입 라우팅 대체
+* 
 const validateSignup = [
   ...validateCredential,
   body("name").notEmpty().withMessage("이름을 입력하세요"),
@@ -30,7 +33,10 @@ const validateSignup = [
   validate,
 ];
 
-router.post("/signup", validateSignup, authController.signup);
+router.post("/signup", validateSignup, authController.signup); 
+*
+**/
+
 router.post("/login", validateCredential, authController.login);
 router.post("/logout", authController.logout);
 router.get("/me", isAuth, authController.me);
