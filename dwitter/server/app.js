@@ -8,7 +8,7 @@ import yaml from "yamljs";
 import swaggerUI from "swagger-ui-express";
 import * as OpenAPIValidator from "express-openapi-validator";
 
-import dweetsRouter from "./router/dweets.js";
+import tweetsRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { config } from "./config.js";
 import { initSocket } from "./connection/socket.js";
@@ -35,7 +35,7 @@ app.use(rateLimiter);
 
 app.use(csrfCheck);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(openAPIDocument));
-app.use("/dweets", dweetsRouter);
+app.use("/tweets", tweetsRouter);
 app.use("/auth", authRouter);
 
 /**

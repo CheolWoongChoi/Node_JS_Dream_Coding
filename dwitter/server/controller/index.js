@@ -1,2 +1,2 @@
 export * from "./auth.js";
-export * from "./dweet.js";
+export * from "./tweet.js";

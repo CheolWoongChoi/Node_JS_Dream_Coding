@@ -80,7 +80,7 @@ url: string (optional)
 //
 
 모든 드윗 가져오기
-GET /dweets
+GET /tweets
 params x : 모든
 params ?username=name : 특정 유저
 
@@ -89,19 +89,19 @@ response
 ```
 모든 드윗
 {
-  [dweet, dweet, ...]
+  [tweet, tweet, ...]
 }
 
 특정 유저의 드윗
 {
-  dweet
+  tweet
 }
 ```
 
 //
 
 드윗 작성하기
-POST /dweet
+POST /tweet
 
 body
 
@@ -118,7 +118,7 @@ response
 //
 
 드윗 수정하기
-PUT /dweet/:id
+PUT /tweet/:id
 
 ```
 body
@@ -134,7 +134,7 @@ response
 //
 
 드윗 삭제하기
-DELETE /dweet/:id
+DELETE /tweet/:id
 
 response
 204
