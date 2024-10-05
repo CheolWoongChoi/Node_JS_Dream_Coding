@@ -14,7 +14,7 @@ const validateDweet = [
   validate,
 ];
 
-router.get("/", isAuth, dweetsController.getDweets);
+// router.get("/", isAuth, dweetsController.getDweets);
 router.get("/:id", isAuth, dweetsController.getDweet);
 router.post("/", isAuth, validateDweet, dweetsController.createDweet);
 router.put("/:id", isAuth, validateDweet, dweetsController.updateDweet);
