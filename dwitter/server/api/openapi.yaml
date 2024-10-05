@@ -135,9 +135,13 @@ components:
           type: integer
           format: int64
         url:
-          type: string
-          format: url
-          nullable: true
+          oneOf:
+            - type: string
+              format: url
+              nullable: true
+            - type: string
+              maxLength: 0
+              nullable: true
       required:
         - id
         - text
@@ -145,7 +149,6 @@ components:
         - username
         - name
         - userId
-        - url
       example:
         id: 42
         text: Best tweet ever
