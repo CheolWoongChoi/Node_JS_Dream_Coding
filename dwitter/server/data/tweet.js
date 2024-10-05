@@ -73,6 +73,8 @@ export async function update(id, text) {
     .then((tweet) => {
       tweet.text = text;
       tweet.save();
+
+      return tweet;
     });
 }
 

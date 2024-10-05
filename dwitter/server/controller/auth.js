@@ -68,8 +68,8 @@ export const authController = {
     }
 
     res.status(200).json({
-      // token: req.token,
       username: user.username,
+      token: req.token,
     });
   },
   csrfToken: async (req, res, next) => {
