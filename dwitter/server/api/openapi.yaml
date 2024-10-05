@@ -95,8 +95,13 @@ components:
           type: string
           format: email
         url:
-          type: string
-          # format: url
+          oneOf:
+            - type: string
+              format: url
+              nullable: true
+            - type: string
+              maxLength: 0
+              nullable: true
       required:
         - username
         - password

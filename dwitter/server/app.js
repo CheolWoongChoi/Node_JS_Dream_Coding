@@ -16,6 +16,7 @@ import { sequelize } from "./db/database.js";
 import { csrfCheck } from "./middleware/csrf.js";
 import rateLimiter from "./middleware/rate-limiter.js";
 import * as apiControllers from "./controller/index.js";
+import { authHandler } from "./middleware/auth.js";
 
 const app = express();
 
@@ -48,6 +49,11 @@ app.use(
     validateResponses: true,
     operationHandlers: {
       resolver: modulePathResolver,
+    },
+    validateSecurity: {
+      handlers: {
+        jwt_auth: authHandler,
+      },
     },
   })
 );
